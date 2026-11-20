@@ -1,0 +1,44 @@
+# --- Sistema grafico y escritorio (XFCE, ligero) ---
+xserver-xorg
+x11-xserver-utils
+dbus-x11
+xfce4-session
+xfce4-panel
+xfwm4
+xfdesktop4
+xfce4-settings
+xfce4-appfinder
+xfce4-terminal
+xfce4-taskmanager
+xfce4-whiskermenu-plugin
+xfce4-pulseaudio-plugin
+xfce4-notifyd
+thunar
+thunar-volman
+gvfs
+gvfs-backends
+mousepad
+ristretto
+lightdm
+lightdm-gtk-greeter
+# --- Dock estilo Mac ---
+plank
+dconf-cli
+# --- Red, audio, navegador ---
+network-manager
+network-manager-gnome
+pipewire-audio
+firefox-esr
+# --- Fuentes, idioma, utilidades ---
+fonts-noto-core
+fonts-liberation
+locales
+sudo
+git
+curl
+ca-certificates
+# --- Para compilar el tema visual durante la construccion ---
+sassc
+gtk2-engines-murrine
+libglib2.0-dev-bin
+librsvg2-common

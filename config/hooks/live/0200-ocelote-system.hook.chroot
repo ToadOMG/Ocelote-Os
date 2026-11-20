@@ -1,0 +1,10 @@
+#!/bin/sh
+# Ajustes del sistema
+dconf update || echo "[ocelote] AVISO: dconf update fallo"
+
+# Guest Additions de VirtualBox (pantalla redimensionable, portapapeles). Opcional.
+apt-get install -y virtualbox-guest-x11 virtualbox-guest-utils \
+  || echo "[ocelote] AVISO: no se pudieron instalar los paquetes guest de VirtualBox"
+
+apt-get clean
+exit 0

@@ -1,0 +1,9 @@
+[net/launchpad/plank/docks/dock1]
+theme='Transparent'
+icon-size=52
+zoom-enabled=true
+zoom-percent=160
+hide-mode='none'
+position='bottom'
+alignment='center'
+dock-items=['thunar.dockitem', 'firefox.dockitem', 'terminal.dockitem', 'mousepad.dockitem', 'settings.dockitem']

@@ -1,0 +1,16 @@
+#!/bin/sh
+# Se ejecuta en el primer inicio de sesion: pone el fondo de pantalla
+MARK="$HOME/.config/ocelote/.setup-done"
+[ -f "$MARK" ] && exit 0
+mkdir -p "$(dirname "$MARK")"
+WALL=/usr/share/backgrounds/ocelote/aurora.png
+sleep 5
+props=$(xfconf-query -c xfce4-desktop -l 2>/dev/null | grep '/last-image$')
+if [ -n "$props" ]; then
+  for p in $props; do xfconf-query -c xfce4-desktop -p "$p" -s "$WALL"; done
+else
+  for m in monitorVirtual-1 monitorVGA-1 monitor0; do
+    xfconf-query -c xfce4-desktop -p "/backdrop/screen0/$m/workspace0/last-image" -n -t string -s "$WALL"
+  done
+fi
+touch "$MARK"

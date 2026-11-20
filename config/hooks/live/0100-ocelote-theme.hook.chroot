@@ -1,0 +1,29 @@
+#!/bin/sh
+# Descarga e instala el tema visual (WhiteSur como base provisional)
+# Si algo falla aqui NO se rompe la ISO, solo se ve mas simple.
+cd /tmp
+
+if git clone --depth 1 https://github.com/vinceliuice/WhiteSur-gtk-theme.git; then
+  ( cd WhiteSur-gtk-theme && \
+    { ./install.sh -d /usr/share/themes -c Light || ./install.sh -d /usr/share/themes; } ) \
+    || echo "[ocelote] AVISO: fallo el tema GTK"
+else
+  echo "[ocelote] AVISO: no se pudo descargar el tema GTK"
+fi
+
+if git clone --depth 1 https://github.com/vinceliuice/WhiteSur-icon-theme.git; then
+  ( cd WhiteSur-icon-theme && ./install.sh -d /usr/share/icons ) \
+    || echo "[ocelote] AVISO: fallo el tema de iconos"
+else
+  echo "[ocelote] AVISO: no se pudo descargar el tema de iconos"
+fi
+
+if git clone --depth 1 https://github.com/vinceliuice/WhiteSur-cursors.git; then
+  ( cd WhiteSur-cursors && ./install.sh ) \
+    || echo "[ocelote] AVISO: fallo el tema de cursores"
+else
+  echo "[ocelote] AVISO: no se pudo descargar el tema de cursores"
+fi
+
+rm -rf /tmp/WhiteSur-*
+exit 0
