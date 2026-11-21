@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Ocelote primer inicio
+Exec=/usr/local/bin/ocelote-first-login
+X-GNOME-Autostart-enabled=true

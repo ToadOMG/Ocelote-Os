@@ -1,4 +1,4 @@
-# Ocelote OS 0.1 (nombre clave provisional)
+# Ocelote OS 0.2 (nombre clave provisional)
 
 Sistema liviano basado en **Debian 13 (trixie) + XFCE**, pensado para probar en VirtualBox.
 Estilo visual tipo Mac OS X (barra superior translucida + dock) y atajos tipo Windows.
@@ -20,11 +20,32 @@ Idioma/teclado/zona horaria: se cambian al inicio de `build.sh`
 (por defecto es_MX, teclado latam, America/Mexico_City).
 
 ## Opcion sin instalar nada: construir en GitHub (gratis)
-1. Crea un repositorio **publico** en github.com y sube todo el contenido de esta carpeta
-   (incluida la carpeta `.github`).
-2. Pestana **Actions** > "Construir ISO Ocelote" > **Run workflow**.
-3. Cuando termine (30-60 min), en la ejecucion baja el artefacto `ocelote-os-iso`
+1. Crea un repositorio **publico** en github.com y sube el contenido de esta carpeta
+   arrastrandolo a "uploading an existing file".
+2. GitHub NO sube carpetas que empiezan con punto al arrastrar. Por eso hay que crear a mano
+   el archivo del workflow: Add file > Create new file, nombre `.github/workflows/build-iso.yml`,
+   pega el contenido de `build-iso.yml` (incluido aparte) y Commit.
+3. Pestana **Actions** > "Construir ISO Ocelote" > **Run workflow**.
+4. Cuando termine (30-60 min), baja el artefacto `ocelote-os-iso`
    (viene en .zip; dentro esta la .iso).
+
+## Instalar en un disco virtual (con barra de progreso)
+1. En VirtualBox, antes de arrancar: Configuracion > Almacenamiento > agrega un disco duro nuevo
+   (VDI, dinamico, 20 GB) ademas de la ISO.
+2. Arranca desde la ISO. En el escritorio hay un icono **Instalar Ocelote OS** (instalador Calamares:
+   idioma, ubicacion, teclado, particiones, usuario y una pantalla de progreso).
+3. Al terminar, apaga la VM, quita la ISO de la unidad optica y arranca de nuevo.
+(El instalador todavia muestra la marca "Debian"; se personaliza en una proxima version.)
+
+## Rendimiento
+- En el menu hay **Modo ligero** (sin transparencias ni zoom: menos CPU) y **Modo bonito**.
+- Incluye memoria comprimida (zram) y se apagaron servicios innecesarios (bluetooth, impresion, etc.).
+- En VirtualBox prueba 2 CPUs, 2 GB de RAM, VMSVGA con 128 MB. Si va lento, usa Modo ligero.
+
+## Si la VM dice "No bootable medium found"
+Es VirtualBox avisando que no encontro nada para arrancar: normalmente la ISO no esta montada
+en la unidad optica, o el orden de arranque no pone "Optico" primero. Revisa que el archivo sea
+la .iso (no el .zip de GitHub) y que pese mas de 1 GB.
 
 ## Maquina virtual en VirtualBox
 - Tipo: Linux / Debian (64-bit)

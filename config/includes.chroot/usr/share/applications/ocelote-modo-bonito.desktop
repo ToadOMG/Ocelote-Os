@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Modo bonito (efectos completos)
+Comment=Activa transparencias y zoom del dock
+Exec=ocelote-modo-bonito
+Icon=preferences-desktop-theme
+Categories=Settings;

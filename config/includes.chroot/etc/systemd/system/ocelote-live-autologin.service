@@ -1,0 +1,11 @@
+[Unit]
+Description=Inicio de sesion automatico en modo live
+ConditionKernelCommandLine=boot=live
+Before=lightdm.service display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'printf "[Seat:*]\nautologin-user=ocelote\nautologin-user-timeout=0\nautologin-session=xfce\n" > /etc/lightdm/lightdm.conf.d/50-ocelote-live.conf'
+
+[Install]
+WantedBy=multi-user.target

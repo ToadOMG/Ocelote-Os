@@ -1,0 +1,10 @@
+#!/bin/sh
+# La carpeta de configuracion se guarda como "dot-config" en el proyecto
+# (los navegadores/GitHub no suben carpetas que empiezan con punto).
+# Aqui se convierte en la ".config" real del usuario.
+if [ -d /etc/skel/dot-config ]; then
+  mkdir -p /etc/skel/.config
+  cp -a /etc/skel/dot-config/. /etc/skel/.config/
+  rm -rf /etc/skel/dot-config
+fi
+exit 0

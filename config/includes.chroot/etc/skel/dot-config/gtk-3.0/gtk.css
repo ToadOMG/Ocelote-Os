@@ -1,0 +1,8 @@
+/* Barra superior translucida estilo Leopard */
+.xfce4-panel.background {
+  background-image: linear-gradient(to bottom, rgba(252,252,252,0.92), rgba(200,200,200,0.92));
+  border-bottom: 1px solid rgba(0,0,0,0.45);
+  color: #111111;
+}
+.xfce4-panel button, .xfce4-panel label { color: #111111; }
+.xfce4-panel button:hover { background: rgba(0,0,0,0.12); border-radius: 4px; }

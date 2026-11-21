@@ -1,0 +1,5 @@
+button-title=Ocelote
+show-button-title=true
+show-button-icon=true
+button-icon=start-here
+favorite-buttons=thunar.desktop,firefox-esr.desktop,xfce4-terminal.desktop

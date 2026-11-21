@@ -44,5 +44,16 @@ lb build 2>&1 | tee build.log
 
 mkdir -p salida
 cp -v ./*.iso salida/
+echo "==> Comprobando que la ISO tenga sector de arranque..."
+for iso in salida/*.iso; do
+  echo "Archivo: $iso ($(du -h "$iso" | cut -f1))" | tee -a build.log
+  out=$(xorriso -indev "$iso" -report_el_torito plain 2>&1 || true)
+  echo "$out" | tee -a build.log
+  case "$out" in
+    *"El Torito boot img"*) echo "OK: la ISO tiene arranque." ;;
+    *) echo "ADVERTENCIA: no se detecto arranque en la ISO (revisa build.log)." ;;
+  esac
+  sha256sum "$iso" | tee -a build.log
+done
 echo
 echo "Listo. Tu ISO esta en: $(pwd)/salida/"

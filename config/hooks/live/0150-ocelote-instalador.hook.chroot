@@ -1,0 +1,11 @@
+#!/bin/sh
+# Instalador grafico Calamares (con barra de progreso) para instalar en disco.
+# Si algo falla aqui la ISO se construye igual, pero sin instalador.
+export DEBIAN_FRONTEND=noninteractive
+apt-get install -y calamares calamares-settings-debian \
+  || echo "[ocelote] AVISO: no se pudo instalar calamares"
+apt-get install -y rsync squashfs-tools parted dosfstools os-prober \
+  || echo "[ocelote] AVISO: fallaron utilidades del instalador"
+apt-get install -y grub2-common grub-pc-bin grub-efi-amd64-bin efibootmgr \
+  || echo "[ocelote] AVISO: fallaron los paquetes de GRUB"
+exit 0

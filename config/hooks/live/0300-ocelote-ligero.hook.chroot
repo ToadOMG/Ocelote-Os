@@ -1,0 +1,23 @@
+#!/bin/sh
+export DEBIAN_FRONTEND=noninteractive
+chmod +x /usr/local/bin/ocelote-* 2>/dev/null || true
+
+# Servicio de autologin del modo live
+systemctl enable ocelote-live-autologin.service || true
+
+# Memoria comprimida (zram): ayuda mucho con poca RAM
+apt-get install -y systemd-zram-generator \
+  || echo "[ocelote] AVISO: no se pudo instalar zram"
+cat > /etc/systemd/zram-generator.conf <<'EOT'
+[zram0]
+zram-size = ram / 2
+compression-algorithm = zstd
+EOT
+
+# Servicios que no hacen falta en una VM de prueba
+for s in bluetooth.service cups.service cups-browsed.service avahi-daemon.service \
+         ModemManager.service apt-daily.timer apt-daily-upgrade.timer \
+         man-db.timer e2scrub_all.timer fstrim.timer; do
+  systemctl disable "$s" >/dev/null 2>&1 || true
+done
+exit 0

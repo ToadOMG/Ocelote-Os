@@ -14,3 +14,20 @@ else
   done
 fi
 touch "$MARK"
+
+# Acceso directo para instalar (solo existe en el modo live)
+if grep -q 'boot=live' /proc/cmdline && command -v calamares >/dev/null 2>&1; then
+  mkdir -p "$HOME/Desktop"
+  F="$HOME/Desktop/Instalar-Ocelote.desktop"
+  cat > "$F" <<'EOT'
+[Desktop Entry]
+Type=Application
+Name=Instalar Ocelote OS
+Comment=Instalar en el disco de la maquina virtual
+Exec=sudo -E calamares
+Icon=system-software-install
+Terminal=false
+EOT
+  chmod +x "$F"
+  gio set "$F" metadata::xfce-exe-checksum "$(sha256sum "$F" | cut -d' ' -f1)" 2>/dev/null || true
+fi
