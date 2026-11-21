@@ -25,5 +25,9 @@ else
   echo "[ocelote] AVISO: no se pudo descargar el tema de cursores"
 fi
 
+# Quitar variantes que no se usan (ahorra espacio en la ISO)
+rm -rf /usr/share/icons/WhiteSur-dark /usr/share/icons/WhiteSur-light
+rm -rf /usr/share/themes/WhiteSur-Dark* /usr/share/themes/WhiteSur-Light-solid* 2>/dev/null || true
+
 rm -rf /tmp/WhiteSur-*
 exit 0

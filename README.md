@@ -1,4 +1,4 @@
-# Ocelote OS 0.2 (nombre clave provisional)
+# Ocelote OS 0.3 (nombre clave provisional)
 
 Sistema liviano basado en **Debian 13 (trixie) + XFCE**, pensado para probar en VirtualBox.
 Estilo visual tipo Mac OS X (barra superior translucida + dock) y atajos tipo Windows.
@@ -28,6 +28,16 @@ Idioma/teclado/zona horaria: se cambian al inicio de `build.sh`
 3. Pestana **Actions** > "Construir ISO Ocelote" > **Run workflow**.
 4. Cuando termine (30-60 min), baja el artefacto `ocelote-os-iso`
    (viene en .zip; dentro esta la .iso).
+
+## Novedades 0.3
+- Logo propio en el menu superior, la pantalla de inicio de sesion y el instalador.
+- Iconos circulares estilo cristal (tema "Ocelote"). Se generan con `tools/mkicons.py`;
+  edita los colores de `BADGES` para crear recolores.
+- **Ocelote Paint**: programa de dibujo propio y ligero (lapiz, pincel, borrador, formas, relleno, gotero).
+- **Navegador**: Firefox ESR con nombre, pagina de inicio y ajustes propios.
+- ISO mas liviana: sin firmware para PCs reales (usa `WITH_FIRMWARE=1` si lo necesitas), sin
+  documentacion/manuales/idiomas que no se usan y sin herramientas de construccion.
+- Arreglos: fondo de pantalla, carpeta Escritorio y reloj.
 
 ## Instalar en un disco virtual (con barra de progreso)
 1. En VirtualBox, antes de arrancar: Configuracion > Almacenamiento > agrega un disco duro nuevo

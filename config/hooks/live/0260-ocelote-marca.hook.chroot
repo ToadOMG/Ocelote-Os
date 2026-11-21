@@ -1,0 +1,19 @@
+#!/bin/sh
+# Marca Ocelote en el instalador (Calamares) y fondo de pantalla por defecto.
+LOGO=/usr/share/ocelote/branding/logo-256.png
+
+if [ -d /etc/calamares/branding ]; then
+  for d in /etc/calamares/branding/*/; do
+    [ -f "$d/branding.desc" ] || continue
+    sed -i -e 's/Debian GNU\/Linux/Ocelote OS/g' -e 's/Debian/Ocelote OS/g' "$d/branding.desc" || true
+    find "$d" -maxdepth 1 -type f -iname '*logo*.png' -exec cp -f "$LOGO" {} \; || true
+  done
+fi
+
+# Si xfdesktop usa su fondo por defecto, apuntarlo a nuestro fondo
+if [ -d /usr/share/backgrounds/xfce ]; then
+  for f in /usr/share/backgrounds/xfce/*; do
+    [ -f "$f" ] && ln -sf /usr/share/backgrounds/ocelote/aurora.png "$f"
+  done
+fi
+exit 0

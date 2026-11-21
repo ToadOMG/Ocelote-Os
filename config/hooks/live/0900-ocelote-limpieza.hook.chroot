@@ -1,0 +1,17 @@
+#!/bin/sh
+# Limpieza final para que la ISO pese menos.
+export DEBIAN_FRONTEND=noninteractive
+
+# Herramientas que solo hicieron falta para construir el tema visual
+apt-get purge -y sassc libglib2.0-dev-bin git >/dev/null 2>&1 || true
+apt-get autoremove -y --purge >/dev/null 2>&1 || true
+
+# Documentacion, manuales y traducciones que no se usan (se conserva "copyright")
+find /usr/share/doc -type f ! -name copyright -delete 2>/dev/null || true
+find /usr/share/doc -type d -empty -delete 2>/dev/null || true
+rm -rf /usr/share/man/* /usr/share/info/* /usr/share/lintian/* /usr/share/groff/* 2>/dev/null || true
+find /usr/share/locale -mindepth 1 -maxdepth 1 ! -name 'es*' ! -name 'en*' ! -name 'locale.alias' \
+  -exec rm -rf {} + 2>/dev/null || true
+
+rm -rf /var/cache/apt/archives/*.deb /var/cache/debconf/*-old /tmp/* 2>/dev/null || true
+exit 0

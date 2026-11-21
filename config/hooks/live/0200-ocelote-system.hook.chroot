@@ -6,5 +6,10 @@ dconf update || echo "[ocelote] AVISO: dconf update fallo"
 apt-get install -y virtualbox-guest-x11 virtualbox-guest-utils \
   || echo "[ocelote] AVISO: no se pudieron instalar los paquetes guest de VirtualBox"
 
+# Cache de iconos (para que se vean los iconos circulares de Ocelote)
+for t in Ocelote hicolor WhiteSur; do
+  [ -d "/usr/share/icons/$t" ] && gtk-update-icon-cache -f -t "/usr/share/icons/$t" || true
+done
+
 apt-get clean
 exit 0

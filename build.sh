@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Ocelote OS 0.1 - script de construccion de la ISO
+# Ocelote OS 0.3 - script de construccion de la ISO
 # Uso:  sudo ./build.sh            (version base, ligera)
 #       sudo WITH_WINE=1 ./build.sh   (incluye Wine para abrir .exe)
+#       sudo WITH_FIRMWARE=1 ./build.sh   (para instalar en un PC real)
 set -euo pipefail
 
 # ====== AJUSTES (cambialos si quieres) ======
@@ -9,6 +10,7 @@ export LOCALE="${LOCALE:-es_MX.UTF-8}"
 export KEYMAP="${KEYMAP:-latam}"
 export TIMEZONE="${TIMEZONE:-America/Mexico_City}"
 WITH_WINE="${WITH_WINE:-0}"
+export WITH_FIRMWARE="${WITH_FIRMWARE:-0}"   # 1 = incluir firmware para PCs reales (ISO mas grande)
 # ============================================
 
 if [ "$(id -u)" -ne 0 ]; then

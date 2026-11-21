@@ -1,0 +1,16 @@
+#!/bin/sh
+# "Navegador" de Ocelote = Firefox ESR sin modificar, con nombre propio en el menu,
+# pagina de inicio propia y ajustes (ver /usr/lib/firefox-esr/distribution/policies.json).
+export DEBIAN_FRONTEND=noninteractive
+
+# Firefox en espanol
+apt-get install -y firefox-esr-l10n-es-mx || echo "[ocelote] AVISO: sin idioma es-mx para Firefox"
+apt-get install -y firefox-esr-l10n-es-es || true
+
+# Nombre del lanzador (solo la entrada principal, no las acciones "Nueva ventana", etc.)
+D=/usr/share/applications/firefox-esr.desktop
+if [ -f "$D" ]; then
+  sed -i -e '0,/^\[Desktop Action/{s/^Name=.*/Name=Navegador/;/^Name\[[^]]*\]=/d;s/^GenericName=.*/GenericName=Navegador web/;/^GenericName\[[^]]*\]=/d}' "$D" \
+    || echo "[ocelote] AVISO: no se pudo renombrar el lanzador del navegador"
+fi
+exit 0

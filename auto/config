@@ -1,15 +1,29 @@
 #!/bin/sh
 set -e
+
+# WITH_FIRMWARE=1 incluye firmware (wifi, tarjetas graficas reales...). En una VM no hace falta
+# y ahorra mucho espacio.
+if [ "${WITH_FIRMWARE:-0}" = "1" ]; then
+    AREAS="main contrib non-free-firmware"
+    FW="--firmware-chroot true --firmware-binary true"
+else
+    AREAS="main contrib"
+    FW="--firmware-chroot false --firmware-binary false"
+fi
+
 lb config noauto \
     --mode debian \
     --distribution trixie \
     --architectures amd64 \
     --binary-images iso-hybrid \
     --debian-installer none \
-    --archive-areas "main contrib non-free-firmware" \
+    --archive-areas "$AREAS" \
+    $FW \
+    --apt-indices false \
+    --chroot-squashfs-compression-type xz \
     --memtest none \
     --iso-application "Ocelote OS" \
-    --iso-volume "OCELOTE_01" \
+    --iso-volume "OCELOTE_03" \
     --image-name "ocelote-os" \
     --bootappend-live "boot=live components quiet username=ocelote hostname=ocelote locales=${LOCALE} keyboard-layouts=${KEYMAP} timezone=${TIMEZONE}" \
     "${@}"

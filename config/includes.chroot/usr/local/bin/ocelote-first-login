@@ -17,8 +17,10 @@ touch "$MARK"
 
 # Acceso directo para instalar (solo existe en el modo live)
 if grep -q 'boot=live' /proc/cmdline && command -v calamares >/dev/null 2>&1; then
-  mkdir -p "$HOME/Desktop"
-  F="$HOME/Desktop/Instalar-Ocelote.desktop"
+  DESK="$(xdg-user-dir DESKTOP 2>/dev/null)"
+  [ -n "$DESK" ] || DESK="$HOME/Desktop"
+  mkdir -p "$DESK"
+  F="$DESK/Instalar-Ocelote.desktop"
   cat > "$F" <<'EOT'
 [Desktop Entry]
 Type=Application
