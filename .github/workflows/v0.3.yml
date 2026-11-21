@@ -1,0 +1,46 @@
+name: Construir ISO Ocelote
+
+on:
+  workflow_dispatch:
+    inputs:
+      con_wine:
+        description: "Incluir Wine para abrir .exe (la ISO pesa mas)"
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    container:
+      image: debian:trixie
+      options: --privileged
+    env:
+      WITH_WINE: ${{ inputs.con_wine && '1' || '0' }}
+    steps:
+      - name: Herramientas basicas
+        run: apt-get update && apt-get install -y git ca-certificates
+
+      - name: Descargar el proyecto
+        uses: actions/checkout@v4
+
+      - name: Construir la ISO
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Guardar la ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: ocelote-os-iso
+          path: salida/*.iso
+          compression-level: 0
+          retention-days: 7
+
+      - name: Guardar el registro de construccion
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+          if-no-files-found: ignore
