@@ -1,0 +1,2 @@
+#!/bin/sh
+exec python3 /usr/local/lib/ocelote-juegos/juegos.py minas "$@"

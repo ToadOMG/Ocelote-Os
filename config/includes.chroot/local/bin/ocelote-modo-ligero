@@ -1,0 +1,4 @@
+#!/bin/sh
+# Menos CPU: sin transparencias/sombras de ventanas ni zoom en el dock
+xfconf-query -c xfwm4 -p /general/use_compositing -s false
+dconf write /net/launchpad/plank/docks/dock1/zoom-enabled false

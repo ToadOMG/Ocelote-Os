@@ -1,0 +1,4 @@
+#!/bin/sh
+# Efectos visuales completos
+xfconf-query -c xfwm4 -p /general/use_compositing -s true
+dconf write /net/launchpad/plank/docks/dock1/zoom-enabled true

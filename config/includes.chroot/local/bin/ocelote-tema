@@ -1,0 +1,39 @@
+#!/bin/sh
+# Uso: ocelote-tema aurora|aqua|grafito|jade
+# Cambia iconos, fondo de pantalla y color de la barra superior.
+T="${1:-aurora}"
+B=/usr/share/backgrounds/ocelote
+case "$T" in
+  aurora)  ICON=Ocelote;         WALL="$B/aurora.png";  TOP="252,252,252"; BOT="200,200,206" ;;
+  aqua)    ICON=Ocelote-Aqua;    WALL="$B/aqua.jpg";    TOP="246,251,255"; BOT="184,212,240" ;;
+  grafito) ICON=Ocelote-Grafito; WALL="$B/grafito.jpg"; TOP="244,244,246"; BOT="186,188,194" ;;
+  jade)    ICON=Ocelote-Jade;    WALL="$B/jade.jpg";    TOP="244,252,248"; BOT="184,222,208" ;;
+  *) echo "Temas: aurora, aqua, grafito, jade"; exit 1 ;;
+esac
+
+xfconf-query -c xsettings -p /Net/IconThemeName -n -t string -s "$ICON" 2>/dev/null \
+  || xfconf-query -c xsettings -p /Net/IconThemeName -s "$ICON"
+
+for p in $(xfconf-query -c xfce4-desktop -l 2>/dev/null | grep '/last-image$'); do
+  xfconf-query -c xfce4-desktop -p "$p" -s "$WALL"
+done
+
+mkdir -p "$HOME/.config/gtk-3.0" "$HOME/.config/ocelote"
+cat > "$HOME/.config/gtk-3.0/gtk.css" <<CSS
+/* Barra superior translucida estilo Leopard (tema: $T) */
+.xfce4-panel.background {
+  background-image: linear-gradient(to bottom, rgba($TOP,0.92), rgba($BOT,0.92));
+  border-bottom: 1px solid rgba(0,0,0,0.45);
+  color: #111111;
+}
+.xfce4-panel button, .xfce4-panel label { color: #111111; }
+.xfce4-panel button:hover { background: rgba(0,0,0,0.12); border-radius: 4px; }
+CSS
+echo "$T" > "$HOME/.config/ocelote/tema"
+
+# Recargar panel y dock para que tomen los cambios
+( xfce4-panel -r >/dev/null 2>&1 & ) 
+if pgrep -x plank >/dev/null 2>&1; then
+  pkill -x plank; sleep 1; ( nohup plank >/dev/null 2>&1 & )
+fi
+exit 0

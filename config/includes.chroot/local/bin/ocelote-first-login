@@ -1,0 +1,41 @@
+#!/bin/sh
+# Se ejecuta en el primer inicio de sesion: pone el fondo de pantalla
+MARK="$HOME/.config/ocelote/.setup-done"
+[ -f "$MARK" ] && exit 0
+mkdir -p "$(dirname "$MARK")"
+WALL=/usr/share/backgrounds/ocelote/aurora.png
+sleep 5
+props=$(xfconf-query -c xfce4-desktop -l 2>/dev/null | grep '/last-image$')
+if [ -n "$props" ]; then
+  for p in $props; do xfconf-query -c xfce4-desktop -p "$p" -s "$WALL"; done
+else
+  for m in monitorVirtual-1 monitorVGA-1 monitor0; do
+    xfconf-query -c xfce4-desktop -p "/backdrop/screen0/$m/workspace0/last-image" -n -t string -s "$WALL"
+  done
+fi
+touch "$MARK"
+
+# Poca RAM (menos de 3 GB): arrancar en modo ligero (sin transparencias ni zoom del dock)
+MEM=$(awk '/^MemTotal/ {print $2}' /proc/meminfo 2>/dev/null)
+if [ "${MEM:-0}" -lt 3000000 ]; then
+  /usr/local/bin/ocelote-modo-ligero 2>/dev/null || true
+fi
+
+# Acceso directo para instalar (solo existe en el modo live)
+if grep -q 'boot=live' /proc/cmdline && command -v calamares >/dev/null 2>&1; then
+  DESK="$(xdg-user-dir DESKTOP 2>/dev/null)"
+  [ -n "$DESK" ] || DESK="$HOME/Desktop"
+  mkdir -p "$DESK"
+  F="$DESK/Instalar-Ocelote.desktop"
+  cat > "$F" <<'EOT'
+[Desktop Entry]
+Type=Application
+Name=Instalar Ocelote OS
+Comment=Instalar en el disco de la maquina virtual
+Exec=sudo -E calamares
+Icon=system-software-install
+Terminal=false
+EOT
+  chmod +x "$F"
+  gio set "$F" metadata::xfce-exe-checksum "$(sha256sum "$F" | cut -d' ' -f1)" 2>/dev/null || true
+fi
