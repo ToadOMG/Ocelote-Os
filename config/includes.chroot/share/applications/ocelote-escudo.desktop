@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Ocelote Escudo
+GenericName=Antivirus
+Comment=Antivirus básico con escudo en tiempo real
+Exec=ocelote-escudo
+Icon=ocelote-escudo
+Terminal=false
+Categories=System;Security;

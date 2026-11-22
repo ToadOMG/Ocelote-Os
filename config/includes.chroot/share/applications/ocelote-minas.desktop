@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Minas
+Comment=Buscaminas clásico
+Exec=ocelote-minas
+Icon=ocelote-minas
+Terminal=false
+Categories=Game;LogicGame;

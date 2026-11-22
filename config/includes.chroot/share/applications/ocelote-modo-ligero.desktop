@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Modo ligero (menos CPU)
+Comment=Desactiva transparencias y zoom para ir mas fluido
+Exec=ocelote-modo-ligero
+Icon=ocelote-apariencia
+Categories=Settings;

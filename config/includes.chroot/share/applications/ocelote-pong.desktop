@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Pong
+Comment=Pong contra la computadora
+Exec=ocelote-pong
+Icon=ocelote-pong
+Terminal=false
+Categories=Game;ArcadeGame;

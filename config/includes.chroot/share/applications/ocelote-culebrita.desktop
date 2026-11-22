@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Culebrita
+Comment=Come manzanas y crece sin chocar
+Exec=ocelote-culebrita
+Icon=ocelote-culebrita
+Terminal=false
+Categories=Game;ArcadeGame;

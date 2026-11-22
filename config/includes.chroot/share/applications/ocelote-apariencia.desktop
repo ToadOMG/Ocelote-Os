@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Apariencia
+Comment=Cambiar tema, fondo e iconos
+Exec=ocelote-apariencia
+Icon=ocelote-apariencia
+Terminal=false
+Categories=Settings;DesktopSettings;

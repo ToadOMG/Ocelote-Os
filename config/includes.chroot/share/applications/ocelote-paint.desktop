@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Ocelote Paint
+GenericName=Editor de dibujo
+Comment=Dibuja y edita imágenes sencillas
+Exec=ocelote-paint %f
+Icon=ocelote-paint
+Terminal=false
+Categories=Graphics;RasterGraphics;
+MimeType=image/png;image/jpeg;image/bmp;
