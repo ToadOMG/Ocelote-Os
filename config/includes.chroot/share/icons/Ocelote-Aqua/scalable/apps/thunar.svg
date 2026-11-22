@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+<defs><linearGradient id="g1" gradientUnits="userSpaceOnUse" x1="0" y1="4" x2="0" y2="124"><stop offset="0" stop-color="#62aced" stop-opacity="1"/><stop offset="1" stop-color="#1666ac" stop-opacity="1"/></linearGradient><clipPath id="c3"><circle cx="64" cy="64" r="58"/></clipPath><linearGradient id="g3" gradientUnits="userSpaceOnUse" x1="0" y1="8" x2="0" y2="66"><stop offset="0" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.06"/></linearGradient><clipPath id="c4"><circle cx="64" cy="64" r="58"/></clipPath><linearGradient id="g4" gradientUnits="userSpaceOnUse" x1="0" y1="100" x2="0" y2="124"><stop offset="0" stop-color="#ffffff" stop-opacity="0.0"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.28"/></linearGradient></defs>
+<circle cx="64" cy="64" r="60" fill="url(#g1)"  />
+<circle cx="64" cy="64" r="59" fill="none" stroke="#0d3d67" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<ellipse cx="64" cy="36" rx="46" ry="30" fill="url(#g3)"  clip-path="url(#c3)"/>
+<ellipse cx="64" cy="118" rx="44" ry="18" fill="url(#g4)"  clip-path="url(#c4)"/>
+<rect x="34" y="40" width="30" height="18" rx="5" fill="#000000" fill-opacity="0.22"  transform="translate(0 2.5)"/>
+<rect x="34" y="48" width="60" height="40" rx="7" fill="#000000" fill-opacity="0.22"  transform="translate(0 2.5)"/>
+<rect x="34" y="54" width="60" height="34" rx="7" fill="#000000" fill-opacity="0.22"  transform="translate(0 2.5)"/>
+<rect x="34" y="40" width="30" height="18" rx="5" fill="#ffffff" fill-opacity="0.8"  />
+<rect x="34" y="48" width="60" height="40" rx="7" fill="#ffffff"  />
+<rect x="34" y="54" width="60" height="34" rx="7" fill="#e8f3fc"  />
+</svg>

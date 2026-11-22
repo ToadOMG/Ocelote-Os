@@ -1,0 +1,12 @@
+[Icon Theme]
+Name=Ocelote-Aqua
+Comment=Iconos circulares de Ocelote OS (aqua)
+Inherits=Ocelote,WhiteSur,hicolor
+Directories=scalable/apps
+
+[scalable/apps]
+Size=128
+MinSize=8
+MaxSize=512
+Type=Scalable
+Context=Applications
