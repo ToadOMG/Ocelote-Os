@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Ocelote OS 0.3 - script de construccion de la ISO
+# Ocelote OS 0.4 - script de construccion de la ISO
 # Uso:  sudo ./build.sh            (version base, ligera)
 #       sudo WITH_WINE=1 ./build.sh   (incluye Wine para abrir .exe)
 #       sudo WITH_FIRMWARE=1 ./build.sh   (para instalar en un PC real)

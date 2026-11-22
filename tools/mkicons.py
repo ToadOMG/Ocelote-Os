@@ -8,15 +8,25 @@ Los colores de cada icono estan en BADGES: cambialos para crear recolores/temas.
 import os, sys, colorsys
 
 SIZE = 128
-BADGES = {  # nombre: color base del circulo
-    "files":     "#2F80ED",
-    "browser":   "#FE9100",
-    "terminal":  "#3B3B4A",
-    "editor":    "#7C5CFA",
-    "settings":  "#8A8F9C",
-    "paint":     "#E8508A",
-    "installer": "#2DB67C",
+THEMES = {  # tema -> color base del circulo de cada icono
+    "aurora": {"files":"#2F80ED","browser":"#FE9100","terminal":"#3B3B4A","editor":"#7C5CFA","settings":"#8A8F9C",
+               "paint":"#E8508A","installer":"#2DB67C","shield":"#3BA76F","snake":"#66A82B","mines":"#3F51B5",
+               "pong":"#26323F","themes":"#9C5CE0"},
+    "aqua":   {"files":"#1E88E5","browser":"#FE9100","terminal":"#1F3350","editor":"#3F6FD8","settings":"#6B88A8",
+               "paint":"#00ACC1","installer":"#26A69A","shield":"#1E9BD7","snake":"#26A69A","mines":"#3F6FD8",
+               "pong":"#1A2F4F","themes":"#4FC3F7"},
+    "grafito":{"files":"#7B8794","browser":"#FE9100","terminal":"#2E3038","editor":"#656C78","settings":"#959BA6",
+               "paint":"#8B7B97","installer":"#5E8C7B","shield":"#5E8C7B","snake":"#7C8B5A","mines":"#5C6370",
+               "pong":"#2B2D33","themes":"#8A8F9C"},
+    "jade":   {"files":"#2E9E6E","browser":"#F4A21A","terminal":"#1F3D33","editor":"#4DB6AC","settings":"#7A9A8E",
+               "paint":"#8BC34A","installer":"#00897B","shield":"#1F9D6B","snake":"#7CB342","mines":"#00897B",
+               "pong":"#1F3D33","themes":"#4DB6AC"},
 }
+THEME_DIRS = {"aurora": "Ocelote", "aqua": "Ocelote-Aqua", "grafito": "Ocelote-Grafito", "jade": "Ocelote-Jade"}
+BADGES = dict(THEMES["aurora"])
+
+def use_theme(name):
+    BADGES.clear(); BADGES.update(THEMES[name])
 # nombres de icono (freedesktop) con los que se publica cada icono
 ALIASES = {
     "files":     ["org.xfce.thunar", "org.xfce.filemanager", "thunar", "Thunar", "system-file-manager"],
@@ -26,6 +36,11 @@ ALIASES = {
     "settings":  ["org.xfce.settings.manager", "xfce4-settings-manager", "preferences-system"],
     "paint":     ["ocelote-paint", "applications-graphics"],
     "installer": ["system-software-install", "calamares", "ocelote-installer"],
+    "shield":    ["ocelote-escudo"],
+    "snake":     ["ocelote-culebrita"],
+    "mines":     ["ocelote-minas"],
+    "pong":      ["ocelote-pong"],
+    "themes":    ["ocelote-apariencia"],
 }
 
 def hex2rgb(h): h=h.lstrip("#"); return tuple(int(h[i:i+2],16) for i in (0,2,4))
@@ -90,6 +105,31 @@ def glyph(name, base, dark):
     elif name == "installer":
         G.append(dict(t="poly", pts=[(55,32),(73,32),(73,56),(88,56),(64,82),(40,56),(55,56)], fill=w))
         G.append(dict(t="line", pts=[(38,87),(38,95),(90,95),(90,87)], stroke=w, sw=6))
+    elif name == "shield":
+        G.append(dict(t="poly", pts=[(64,30),(92,40),(92,64),(85,83),(64,98),(43,83),(36,64),(36,40)], fill=w))
+        G.append(dict(t="line", pts=[(51,63),(61,74),(79,52)], stroke=dark+(1,), sw=8))
+    elif name == "snake":
+        G.append(dict(t="line", pts=[(34,88),(34,70),(60,70),(60,52),(86,52)], stroke=w, sw=12))
+        G.append(dict(t="circle", cx=88, cy=52, r=10, fill=w))
+        G.append(dict(t="circle", cx=91, cy=49, r=2.8, fill=dark+(1,)))
+        G.append(dict(t="circle", cx=86, cy=86, r=7, fill=(229,57,53,1)))
+    elif name == "mines":
+        for k in range(8):
+            import math
+            a = k * math.pi / 4
+            G.append(dict(t="line", pts=[(64+14*math.cos(a), 68+14*math.sin(a)), (64+27*math.cos(a), 68+27*math.sin(a))],
+                          stroke=(30,30,40,1), sw=6))
+        G.append(dict(t="circle", cx=64, cy=68, r=19, fill=(30,30,40,1)))
+        G.append(dict(t="circle", cx=57, cy=61, r=5, fill=(255,255,255,0.8)))
+        G.append(dict(t="line", pts=[(76,52),(86,40)], stroke=w, sw=4))
+        G.append(dict(t="circle", cx=89, cy=37, r=5, fill=(253,216,53,1)))
+    elif name == "pong":
+        G.append(dict(t="rrect", x=33, y=42, w=10, h=36, rx=4, fill=w))
+        G.append(dict(t="rrect", x=85, y=52, w=10, h=36, rx=4, fill=w))
+        G.append(dict(t="circle", cx=64, cy=62, r=7.5, fill=w))
+    elif name == "themes":
+        for (x, y, c) in ((50,50,"#8e24aa"),(78,50,"#1e88e5"),(50,78,"#78909c"),(78,78,"#2e9e6e")):
+            G.append(dict(t="circle", cx=x, cy=y, r=14, fill=hex2rgb(c)+(1,), stroke=w, sw=3.5))
     return G
 
 # ------------------------------------------------------------------ SVG
@@ -242,17 +282,27 @@ def m_out_minus_in(e, shape_fill, mask_of, sh):
 
 def main():
     out = sys.argv[1] if len(sys.argv) > 1 else None
-    if out:
-        d = os.path.join(out, "scalable", "apps"); os.makedirs(d, exist_ok=True)
-        for name in BADGES:
-            data = svg(name)
-            for alias in ALIASES[name]:
-                with open(os.path.join(d, alias + ".svg"), "w") as fh: fh.write(data)
-        print("SVG escritos en", d)
-    try:
-        preview("/tmp/ocelote-iconos.png"); print("vista previa: /tmp/ocelote-iconos.png")
-    except ImportError:
-        pass
+    prev = []
+    for tema, carpeta in THEME_DIRS.items():
+        use_theme(tema)
+        if out:
+            d = os.path.join(out, carpeta, "scalable", "apps"); os.makedirs(d, exist_ok=True)
+            for name in BADGES:
+                data = svg(name)
+                for alias in ALIASES[name]:
+                    with open(os.path.join(d, alias + ".svg"), "w") as fh: fh.write(data)
+            inh = "WhiteSur,hicolor" if tema == "aurora" else "Ocelote,WhiteSur,hicolor"
+            with open(os.path.join(out, carpeta, "index.theme"), "w") as fh:
+                fh.write("[Icon Theme]\nName=%s\nComment=Iconos circulares de Ocelote OS (%s)\nInherits=%s\n"
+                         "Directories=scalable/apps\n\n[scalable/apps]\nSize=128\nMinSize=8\nMaxSize=512\n"
+                         "Type=Scalable\nContext=Applications\n" % (carpeta, tema, inh))
+        try:
+            f = "/tmp/ocelote-iconos-%s.png" % tema
+            preview(f); prev.append(f)
+        except ImportError:
+            pass
+    if out: print("temas de iconos escritos en", out)
+    for f in prev: print("vista previa:", f)
 
 if __name__ == "__main__":
     main()

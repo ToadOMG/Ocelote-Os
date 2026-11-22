@@ -1,4 +1,4 @@
-# Ocelote OS 0.3 (nombre clave provisional)
+# Ocelote OS 0.4
 
 Sistema liviano basado en **Debian 13 (trixie) + XFCE**, pensado para probar en VirtualBox.
 Estilo visual tipo Mac OS X (barra superior translucida + dock) y atajos tipo Windows.
@@ -28,6 +28,27 @@ Idioma/teclado/zona horaria: se cambian al inicio de `build.sh`
 3. Pestana **Actions** > "Construir ISO Ocelote" > **Run workflow**.
 4. Cuando termine (30-60 min), baja el artefacto `ocelote-os-iso`
    (viene en .zip; dentro esta la .iso).
+
+## Novedades 0.4
+- **Menos congelamientos**: compresion zstd (descomprime mucho mas rapido que xz, importante al abrir
+  programas y al instalar), Firefox con ajustes para poca RAM, menos efectos graficos, zram afinado y
+  **modo ligero automatico** si la VM tiene menos de 3 GB de RAM.
+- **Temas**: Aurora, Aqua, Grafito y Jade (iconos + fondo + barra superior). Programa "Apariencia".
+- **Ocelote Escudo**: antivirus basico con interfaz clasica, alerta con sonido y cofre (cuarentena).
+  Escudo en tiempo real opcional (apagado por defecto para no gastar recursos).
+- **Juegos**: Culebrita, Minas (buscaminas) y Pong. **Programas**: Calculadora, Archivador, Capturas.
+- Ayuda para probar: Escudo > "Crear archivo de prueba EICAR" (inofensivo) o "Simular alerta".
+
+## Si se congela o va lento
+1. VirtualBox > Configuracion > Sistema: RAM = como maximo la mitad de la RAM de tu PC (minimo 2 GB);
+   Procesador: 2 CPU (no mas de la mitad de los de tu PC); Aceleracion: Interfaz de paravirtualizacion = KVM.
+2. Pantalla: VMSVGA, 128 MB, **sin** aceleracion 3D.
+3. Almacenamiento: en el controlador SATA activa **"Usar cache de E/S del anfitrion"**.
+4. Si en la esquina inferior derecha de la VM ves una **tortuga verde**, VirtualBox esta corriendo sobre
+   Hyper-V (Windows) y va muy lento: desactiva "Plataforma del hipervisor de Windows" o Hyper-V.
+5. La instalacion copia varios GB: el porcentaje puede quedarse en 5% varios minutos. Es normal si el
+   disco es lento; usa un disco virtual de tamano fijo y cierra otros programas durante la instalacion.
+6. Instalar NO es obligatorio: puedes usar Ocelote OS en modo "live" desde la ISO (no guarda cambios).
 
 ## Novedades 0.3
 - Logo propio en el menu superior, la pantalla de inicio de sesion y el instalador.
