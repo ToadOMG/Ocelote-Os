@@ -6,5 +6,9 @@
     <property name="title_alignment" type="string" value="center"/>
     <property name="title_font" type="string" value="Noto Sans Bold 10"/>
     <property name="use_compositing" type="bool" value="true"/>
+    <property name="vblank_mode" type="string" value="off"/>
+    <property name="show_popup_shadow" type="bool" value="false"/>
+    <property name="show_dock_shadow" type="bool" value="false"/>
+    <property name="zoom_desktop" type="bool" value="false"/>
   </property>
 </channel>
