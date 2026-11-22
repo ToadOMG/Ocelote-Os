@@ -1,0 +1,6 @@
+# Firmas de Ocelote Escudo. Formato:  sha256<TAB>nombre<TAB>tipo
+# Puedes agregar las tuyas en ~/.config/ocelote/escudo-firmas.txt (mismo formato).
+# Estas son las variantes del archivo de prueba EICAR (inofensivo; sirve para probar antivirus).
+275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f	EICAR-Test-File	Archivo de prueba (no es un virus)
+131f95c51cc819465fa1797f6ccacf9d494aaaff46fa3eac73ae63ffbdfd8267	EICAR-Test-File	Archivo de prueba (no es un virus)
+8b3f191819931d1f2cef7289239b5f77c00b079847b9c2636e56854d1e5eff71	EICAR-Test-File	Archivo de prueba (no es un virus)
